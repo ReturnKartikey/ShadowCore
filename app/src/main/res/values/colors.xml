@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sc_primary">#FF7C4DFF</color>
+    <color name="sc_primary_dark">#FF651FFF</color>
+    <color name="sc_surface_dark">#FF121218</color>
+    <color name="sc_surface_light">#FFF8F6FF</color>
+    <color name="sc_running">#FF00E676</color>
+    <color name="sc_paused">#FFFFAB40</color>
+    <color name="sc_stopped">#FF78909C</color>
+    <color name="sc_error">#FFFF5252</color>
+</resources>

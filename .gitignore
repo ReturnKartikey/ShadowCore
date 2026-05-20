@@ -1,0 +1,67 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+release/
+
+# Gradle files
+.gradle/
+build/
+**/build/
+
+# Local configuration file
+local.properties
+
+# Android Studio
+*.iml
+.idea/
+*.iws
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Signing
+*.jks
+*.keystore
+release.properties
+
+# Google Services
+google-services.json
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Kotlin
+.kotlin/
+
+# System images (too large for git)
+app/src/main/assets/images/
+*.tar.gz
+*.img
+*.raw.img
+
+# Firebase
+firebase-debug.log
+.firebaserc
+
+# Misc
+*.log
+*.tmp
+*.bak
+*.swp
+*~

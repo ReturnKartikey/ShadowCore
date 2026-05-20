@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShadowCore</string>
+    <string name="app_tagline">Virtual Android. Real Power.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_premium">Premium</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Your Virtual Machines</string>
+    <string name="home_empty_title">No Virtual Machines Yet</string>
+    <string name="home_empty_subtitle">Create your first isolated Android VM to get started</string>
+    <string name="home_create_vm">Create VM</string>
+    <string name="home_running">Running</string>
+    <string name="home_stopped">Stopped</string>
+    <string name="home_paused">Paused</string>
+    <string name="home_error">Error</string>
+    <string name="home_starting">Starting…</string>
+    <string name="home_downloading">Downloading…</string>
+
+    <!-- Create VM -->
+    <string name="create_vm_title">Create Virtual Machine</string>
+    <string name="create_vm_name_label">VM Name</string>
+    <string name="create_vm_name_hint">e.g., Work Phone, Gaming</string>
+    <string name="create_vm_version_label">Android Version</string>
+    <string name="create_vm_category_label">Category</string>
+    <string name="create_vm_ram_label">RAM Allocation</string>
+    <string name="create_vm_storage_label">Storage Allocation</string>
+    <string name="create_vm_network_isolation">Network Isolation</string>
+    <string name="create_vm_network_isolation_desc">Block internet access for this VM</string>
+    <string name="create_vm_root_access">Root Access</string>
+    <string name="create_vm_root_access_desc">Enable root inside VM (host stays unrooted)</string>
+    <string name="create_vm_button">Create VM</string>
+    <string name="create_vm_premium_required">Premium Required</string>
+    <string name="create_vm_limit_reached">Free tier limit reached (2 VMs). Upgrade to Premium for unlimited VMs.</string>
+
+    <!-- VM Categories -->
+    <string name="category_work">Work</string>
+    <string name="category_gaming">Gaming</string>
+    <string name="category_privacy">Privacy</string>
+    <string name="category_personal">Personal</string>
+    <string name="category_custom">Custom</string>
+
+    <!-- Android Versions -->
+    <string name="android_9">Android 9 Pie</string>
+    <string name="android_11">Android 11</string>
+    <string name="android_13">Android 13 Tiramisu</string>
+    <string name="android_15">Android 15</string>
+
+    <!-- VM Detail -->
+    <string name="detail_start">Start</string>
+    <string name="detail_stop">Stop</string>
+    <string name="detail_pause">Pause</string>
+    <string name="detail_restart">Restart</string>
+    <string name="detail_repair">Repair VM</string>
+    <string name="detail_export">Export Backup</string>
+    <string name="detail_delete">Delete VM</string>
+    <string name="detail_delete_confirm">Are you sure you want to delete this VM? This action cannot be undone.</string>
+    <string name="detail_ram_usage">RAM Usage</string>
+    <string name="detail_storage_usage">Storage Usage</string>
+    <string name="detail_last_used">Last used</string>
+    <string name="detail_created">Created</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_auto">Auto (System)</string>
+    <string name="settings_vm_defaults">VM Defaults</string>
+    <string name="settings_default_ram">Default RAM</string>
+    <string name="settings_default_storage">Default Storage</string>
+    <string name="settings_maintenance">Maintenance</string>
+    <string name="settings_repair_all">Repair All VMs</string>
+    <string name="settings_clear_cache">Clear VM Cache</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_capability_tier">Device Capability</string>
+
+    <!-- Capability Tiers -->
+    <string name="tier_0_name">Unsupported</string>
+    <string name="tier_0_desc">This device does not support virtualization</string>
+    <string name="tier_1_name">Container Mode</string>
+    <string name="tier_1_desc">Lightweight isolation using OS containers</string>
+    <string name="tier_2_name">AVF Virtualization</string>
+    <string name="tier_2_desc">Android Virtualization Framework supported</string>
+    <string name="tier_3_name">Hardware Accelerated</string>
+    <string name="tier_3_desc">Full KVM with GPU passthrough</string>
+
+    <!-- Premium -->
+    <string name="premium_title">ShadowCore Premium</string>
+    <string name="premium_subtitle">Unlock the full power</string>
+    <string name="premium_lifetime">One-Time Purchase — Lifetime Access</string>
+    <string name="premium_feature_unlimited_vms">Unlimited Virtual Machines</string>
+    <string name="premium_feature_all_android">All Android Versions (13, 15)</string>
+    <string name="premium_feature_custom_roms">Custom ROM Support</string>
+    <string name="premium_feature_backup">Export &amp; Backup VMs</string>
+    <string name="premium_feature_priority">Priority Support</string>
+    <string name="premium_purchase">Purchase Premium</string>
+    <string name="premium_already_owned">Premium Active ✓</string>
+    <string name="premium_restore">Restore Purchase</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Running VMs</string>
+    <string name="notification_channel_desc">Shows when virtual machines are running</string>
+    <string name="notification_vm_running">%1$d VM(s) running</string>
+
+    <!-- General -->
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="ok">OK</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="mb_format">%1$d MB</string>
+    <string name="gb_format">%1$.1f GB</string>
+</resources>
