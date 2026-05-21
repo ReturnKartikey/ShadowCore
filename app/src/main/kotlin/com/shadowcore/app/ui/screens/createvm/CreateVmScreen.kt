@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shadowcore.app.domain.model.AndroidVersion
-import com.shadowcore.app.domain.model.VmCategory
+import com.shadowcore.app.domain.model.VeCategory
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -39,7 +39,7 @@ fun CreateVmScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Create Virtual Machine") },
+                title = { Text("Create Virtual Environment") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
@@ -62,7 +62,7 @@ fun CreateVmScreen(
             OutlinedTextField(
                 value = state.name,
                 onValueChange = viewModel::updateName,
-                label = { Text("VM Name") },
+                label = { Text("Environment Name") },
                 placeholder = { Text("e.g., Work Phone, Gaming") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
@@ -98,7 +98,7 @@ fun CreateVmScreen(
             // Category Selection
             Text("Category", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                VmCategory.entries.forEach { category ->
+                VeCategory.entries.forEach { category ->
                     val isSelected = state.selectedCategory == category
                     FilterChip(
                         selected = isSelected,
@@ -137,7 +137,7 @@ fun CreateVmScreen(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text("Network Isolation", style = MaterialTheme.typography.titleSmall)
-                    Text("Block internet for this VM", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Block internet for this environment", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Switch(checked = state.isNetworkIsolated, onCheckedChange = { viewModel.toggleNetworkIsolation() })
             }
@@ -149,7 +149,7 @@ fun CreateVmScreen(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text("Root Access", style = MaterialTheme.typography.titleSmall)
-                    Text("Enable root inside VM (host stays safe)", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Enable root inside environment (host stays safe)", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Switch(checked = state.hasRootAccess, onCheckedChange = { viewModel.toggleRootAccess() })
             }
@@ -161,7 +161,7 @@ fun CreateVmScreen(
 
             // Create button
             Button(
-                onClick = viewModel::createVm,
+                onClick = viewModel::createVe,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 enabled = !state.isCreating,
             ) {
@@ -170,7 +170,7 @@ fun CreateVmScreen(
                 } else {
                     Icon(Icons.Rounded.Add, null)
                     Spacer(Modifier.width(8.dp))
-                    Text("Create Virtual Machine", fontWeight = FontWeight.Bold)
+                    Text("Create Virtual Environment", fontWeight = FontWeight.Bold)
                 }
             }
 

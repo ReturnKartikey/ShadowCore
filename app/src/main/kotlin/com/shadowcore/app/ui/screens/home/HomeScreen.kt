@@ -6,7 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Memory
+import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shadowcore.app.domain.model.CapabilityTier
-import com.shadowcore.app.domain.model.VmState
+import com.shadowcore.app.domain.model.VeState
 import com.shadowcore.app.ui.components.VmCard
 import com.shadowcore.app.ui.theme.*
 
@@ -29,6 +31,8 @@ fun HomeScreen(
     onNavigateToDetail: (String) -> Unit,
     onNavigateToConsole: (String) -> Unit,
     onNavigateToSettings: () -> Unit,
+    onNavigateToActivation: () -> Unit = {},
+    onNavigateToImageManager: () -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -68,6 +72,14 @@ fun HomeScreen(
                     }
                 },
                 actions = {
+                    // Activation button
+                    IconButton(onClick = onNavigateToActivation) {
+                        Icon(Icons.Rounded.Security, contentDescription = "Activate")
+                    }
+                    // Image manager button
+                    IconButton(onClick = onNavigateToImageManager) {
+                        Icon(Icons.Rounded.Download, contentDescription = "System Images")
+                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Rounded.Settings, contentDescription = "Settings")
                     }
@@ -113,15 +125,15 @@ fun HomeScreen(
                     VmCard(
                         profile = profile,
                         onClick = {
-                            // If running, go to console. Otherwise, go to detail.
-                            if (profile.state is VmState.Running) {
+                            // If running, go to container. Otherwise, go to detail.
+                            if (profile.state is VeState.Running) {
                                 onNavigateToConsole(profile.id)
                             } else {
                                 onNavigateToDetail(profile.id)
                             }
                         },
                         onQuickStart = { onNavigateToConsole(profile.id) },
-                        onQuickStop = { viewModel.stopVm(profile.id) },
+                        onQuickStop = { viewModel.stopVe(profile.id) },
                         modifier = Modifier.animateItem(),
                     )
                 }

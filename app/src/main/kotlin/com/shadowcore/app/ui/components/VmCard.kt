@@ -15,14 +15,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.shadowcore.app.domain.model.VmProfile
-import com.shadowcore.app.domain.model.VmState
+import com.shadowcore.app.domain.model.VeProfile
+import com.shadowcore.app.domain.model.VeState
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
 fun VmCard(
-    profile: VmProfile,
+    profile: VeProfile,
     onClick: () -> Unit,
     onQuickStart: (() -> Unit)? = null,
     onQuickStop: (() -> Unit)? = null,
@@ -142,12 +142,12 @@ fun VmCard(
 
                         if (profile.state.canStart && onQuickStart != null) {
                             FilledTonalIconButton(onClick = onQuickStart) {
-                                Icon(Icons.Rounded.PlayArrow, "Start VM", Modifier.size(20.dp))
+                                Icon(Icons.Rounded.PlayArrow, "Start", Modifier.size(20.dp))
                             }
                         }
                         if (profile.state.canStop && onQuickStop != null) {
                             FilledTonalIconButton(onClick = onQuickStop) {
-                                Icon(Icons.Rounded.Stop, "Stop VM", Modifier.size(20.dp))
+                                Icon(Icons.Rounded.Stop, "Stop", Modifier.size(20.dp))
                             }
                         }
                     }

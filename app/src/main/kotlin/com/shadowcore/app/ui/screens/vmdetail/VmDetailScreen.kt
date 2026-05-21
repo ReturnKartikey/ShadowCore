@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.shadowcore.app.domain.model.VmState
+import com.shadowcore.app.domain.model.VeState
 import com.shadowcore.app.ui.components.AndroidVersionBadge
 import com.shadowcore.app.ui.components.ResourceBar
 import com.shadowcore.app.ui.components.StatusIndicator
@@ -40,7 +40,7 @@ fun VmDetailScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
-                title = { Text(state.profile?.name ?: "VM Details") },
+                title = { Text(state.profile?.name ?: "Environment Details") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
@@ -86,8 +86,8 @@ fun VmDetailScreen(
 
                     Spacer(Modifier.height(4.dp))
 
-                    // Running status banner — tap to open console
-                    if (profile.state is VmState.Running) {
+                    // Running status banner — tap to open container
+                    if (profile.state is VeState.Running) {
                         Spacer(Modifier.height(8.dp))
                         Card(
                             onClick = { onNavigateToConsole(profile.id) },
@@ -101,7 +101,7 @@ fun VmDetailScreen(
                             ) {
                                 Icon(Icons.Rounded.Code, null, tint = VmRunning, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text("VM is running — tap to open console", fontWeight = FontWeight.SemiBold, color = VmRunning, style = MaterialTheme.typography.labelLarge)
+                                Text("Environment is running — tap to open", fontWeight = FontWeight.SemiBold, color = VmRunning, style = MaterialTheme.typography.labelLarge)
                             }
                         }
                     }
@@ -122,10 +122,10 @@ fun VmDetailScreen(
                     ) {
                         Icon(Icons.Rounded.PlayArrow, null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Start VM")
+                        Text("Start")
                     }
                 }
-                if (profile.state is VmState.Running) {
+                if (profile.state is VeState.Running) {
                     Button(
                         onClick = { onNavigateToConsole(profile.id) },
                         modifier = Modifier.weight(1f),
@@ -133,16 +133,16 @@ fun VmDetailScreen(
                     ) {
                         Icon(Icons.Rounded.Code, null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Open Console")
+                        Text("Open")
                     }
                 }
                 if (profile.state.canStop) {
-                    OutlinedButton(onClick = viewModel::stopVm, modifier = Modifier.weight(1f)) {
+                    OutlinedButton(onClick = viewModel::stopVe, modifier = Modifier.weight(1f)) {
                         Icon(Icons.Rounded.Stop, null); Spacer(Modifier.width(4.dp)); Text("Stop")
                     }
                 }
                 if (profile.state.canPause) {
-                    OutlinedButton(onClick = viewModel::pauseVm, modifier = Modifier.weight(1f)) {
+                    OutlinedButton(onClick = viewModel::pauseVe, modifier = Modifier.weight(1f)) {
                         Icon(Icons.Rounded.Pause, null); Spacer(Modifier.width(4.dp)); Text("Pause")
                     }
                 }
@@ -166,15 +166,15 @@ fun VmDetailScreen(
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Maintenance", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     HorizontalDivider()
-                    TextButton(onClick = viewModel::repairVm, modifier = Modifier.fillMaxWidth()) {
-                        Icon(Icons.Rounded.Build, null); Spacer(Modifier.width(8.dp)); Text("Repair VM")
+                    TextButton(onClick = viewModel::repairVe, modifier = Modifier.fillMaxWidth()) {
+                        Icon(Icons.Rounded.Build, null); Spacer(Modifier.width(8.dp)); Text("Repair Environment")
                     }
                     TextButton(
                         onClick = { showDeleteDialog = true },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
                     ) {
-                        Icon(Icons.Rounded.Delete, null); Spacer(Modifier.width(8.dp)); Text("Delete VM")
+                        Icon(Icons.Rounded.Delete, null); Spacer(Modifier.width(8.dp)); Text("Delete Environment")
                     }
                 }
             }
@@ -186,9 +186,9 @@ fun VmDetailScreen(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Delete VM?") },
+            title = { Text("Delete Environment?") },
             text = { Text("This will permanently delete \"${state.profile?.name}\". This action cannot be undone.") },
-            confirmButton = { TextButton(onClick = { showDeleteDialog = false; viewModel.deleteVm() }) { Text("Delete", color = MaterialTheme.colorScheme.error) } },
+            confirmButton = { TextButton(onClick = { showDeleteDialog = false; viewModel.deleteVe() }) { Text("Delete", color = MaterialTheme.colorScheme.error) } },
             dismissButton = { TextButton(onClick = { showDeleteDialog = false }) { Text("Cancel") } },
         )
     }

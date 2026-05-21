@@ -100,6 +100,16 @@ class ContainerManager @Inject constructor(
         _runningContainers.asStateFlow()
 
     /**
+     * Convenience method to start a container without specifying the image path.
+     * Uses the default image directory based on the VE profile.
+     * TODO: Look up image path from VeRepository when full integration is done.
+     */
+    fun startContainer(veId: String): Flow<BootEvent> {
+        val defaultImagePath = "${context.filesDir}/images/default"
+        return startContainer(veId, defaultImagePath)
+    }
+
+    /**
      * Starts a virtual environment container.
      *
      * If the container is already running, this returns the existing boot flow.

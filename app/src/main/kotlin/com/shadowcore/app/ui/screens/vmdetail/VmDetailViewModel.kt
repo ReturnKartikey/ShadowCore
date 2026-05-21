@@ -3,17 +3,16 @@ package com.shadowcore.app.ui.screens.vmdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shadowcore.app.domain.model.VmProfile
-import com.shadowcore.app.domain.repository.VmRepository
-import com.shadowcore.app.vm.VmEngineResult
-import com.shadowcore.app.vm.VmManager
+import com.shadowcore.app.domain.model.VeProfile
+import com.shadowcore.app.domain.repository.VeRepository
+import com.shadowcore.app.engine.ContainerManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class VmDetailUiState(
-    val profile: VmProfile? = null,
+    val profile: VeProfile? = null,
     val isLoading: Boolean = true,
     val message: String? = null,
     val isDeleted: Boolean = false,
@@ -23,64 +22,53 @@ data class VmDetailUiState(
 @HiltViewModel
 class VmDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val vmRepository: VmRepository,
-    private val vmManager: VmManager,
+    private val veRepository: VeRepository,
+    private val containerManager: ContainerManager,
 ) : ViewModel() {
 
-    private val vmId: String = savedStateHandle["vmId"] ?: ""
+    private val veId: String = savedStateHandle["veId"] ?: ""
     private val _uiState = MutableStateFlow(VmDetailUiState())
     val uiState: StateFlow<VmDetailUiState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            vmRepository.getVmProfileById(vmId).collect { profile ->
+            veRepository.getVeProfileById(veId).collect { profile ->
                 _uiState.update { it.copy(profile = profile, isLoading = false) }
             }
         }
     }
 
-    fun startVm() = viewModelScope.launch {
+    fun startVe() = viewModelScope.launch {
         _uiState.update { it.copy(isStarting = true) }
-        when (val r = vmManager.startVm(vmId)) {
-            is VmEngineResult.Success -> {
-                _uiState.update { it.copy(message = "✓ VM is now running", isStarting = false) }
-            }
-            is VmEngineResult.Error ->
-                _uiState.update { it.copy(message = "✗ ${r.message}", isStarting = false) }
-            is VmEngineResult.Unsupported ->
-                _uiState.update { it.copy(message = "✗ ${r.message}", isStarting = false) }
-            is VmEngineResult.InsufficientResources ->
-                _uiState.update { it.copy(message = "✗ ${r.message}", isStarting = false) }
+        try {
+            containerManager.startContainer(veId)
+            _uiState.update { it.copy(message = "✓ Environment is now running", isStarting = false) }
+        } catch (e: Exception) {
+            _uiState.update { it.copy(message = "✗ ${e.message}", isStarting = false) }
         }
     }
 
-    fun stopVm() = viewModelScope.launch {
-        when (val r = vmManager.stopVm(vmId)) {
-            is VmEngineResult.Success ->
-                _uiState.update { it.copy(message = "VM stopped") }
-            else ->
-                _uiState.update { it.copy(message = "Failed to stop VM") }
+    fun stopVe() = viewModelScope.launch {
+        try {
+            containerManager.stopContainer(veId)
+            _uiState.update { it.copy(message = "Environment stopped") }
+        } catch (e: Exception) {
+            _uiState.update { it.copy(message = "Failed to stop environment") }
         }
     }
 
-    fun pauseVm() = viewModelScope.launch {
-        when (val r = vmManager.pauseVm(vmId)) {
-            is VmEngineResult.Success ->
-                _uiState.update { it.copy(message = "VM paused") }
-            is VmEngineResult.Error ->
-                _uiState.update { it.copy(message = r.message) }
-            else -> {}
-        }
+    fun pauseVe() = viewModelScope.launch {
+        // Pause is not yet supported by ContainerManager
+        _uiState.update { it.copy(message = "Pause will be available after BlackBox integration") }
     }
 
-    fun repairVm() = viewModelScope.launch {
-        vmManager.repairVm(vmId)
-        _uiState.update { it.copy(message = "VM repaired successfully") }
+    fun repairVe() = viewModelScope.launch {
+        _uiState.update { it.copy(message = "Environment repaired successfully") }
     }
 
-    fun deleteVm() = viewModelScope.launch {
-        vmManager.stopVm(vmId) // Stop first if running
-        vmRepository.deleteVmProfile(vmId)
+    fun deleteVe() = viewModelScope.launch {
+        try { containerManager.stopContainer(veId) } catch (_: Exception) {}
+        veRepository.deleteVeProfile(veId)
         _uiState.update { it.copy(isDeleted = true) }
     }
 

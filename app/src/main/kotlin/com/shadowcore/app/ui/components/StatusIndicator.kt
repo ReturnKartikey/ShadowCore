@@ -12,32 +12,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.shadowcore.app.domain.model.VmState
+import com.shadowcore.app.domain.model.VeState
 import com.shadowcore.app.ui.theme.*
 
 @Composable
 fun StatusIndicator(
-    state: VmState,
+    state: VeState,
     size: Dp = 12.dp,
     modifier: Modifier = Modifier,
 ) {
     val color by animateColorAsState(
         targetValue = when (state) {
-            is VmState.Running -> VmRunning
-            is VmState.Starting -> VmDownloading
-            is VmState.Paused -> VmPaused
-            is VmState.Downloading -> VmDownloading
-            is VmState.Error -> VmError
-            is VmState.Stopped -> VmStopped
+            is VeState.Running -> VmRunning
+            is VeState.Starting -> VmDownloading
+            is VeState.Paused -> VmPaused
+            is VeState.Downloading -> VmDownloading
+            is VeState.Error -> VmError
+            is VeState.Stopped -> VmStopped
         },
         animationSpec = tween(300),
         label = "statusColor"
     )
 
-    val isPulsing = state is VmState.Running || state is VmState.Starting
+    val isPulsing = state is VeState.Running || state is VeState.Starting
 
     val pulseAnim = rememberInfiniteTransition(label = "pulse")
     val scale by pulseAnim.animateFloat(

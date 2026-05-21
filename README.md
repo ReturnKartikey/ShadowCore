@@ -108,7 +108,7 @@ ShadowCore lets you run a **complete, isolated Android environment** inside your
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/ShadowCore.git
+git clone https://github.com/ReturnKartikey/ShadowCore.git
 cd ShadowCore
 
 # Open in Android Studio (Arctic Fox+)

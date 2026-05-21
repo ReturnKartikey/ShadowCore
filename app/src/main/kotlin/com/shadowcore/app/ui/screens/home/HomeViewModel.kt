@@ -3,18 +3,17 @@ package com.shadowcore.app.ui.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shadowcore.app.domain.model.CapabilityTier
-import com.shadowcore.app.domain.model.VmProfile
-import com.shadowcore.app.domain.usecase.GetVmProfilesUseCase
+import com.shadowcore.app.domain.model.VeProfile
+import com.shadowcore.app.domain.usecase.GetVeProfilesUseCase
+import com.shadowcore.app.engine.ContainerManager
 import com.shadowcore.app.vm.VmCapabilityChecker
-import com.shadowcore.app.vm.VmEngineResult
-import com.shadowcore.app.vm.VmManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class HomeUiState(
-    val vmProfiles: List<VmProfile> = emptyList(),
+    val veProfiles: List<VeProfile> = emptyList(),
     val isLoading: Boolean = true,
     val capabilityTier: CapabilityTier = CapabilityTier.TIER_0_UNSUPPORTED,
     val errorMessage: String? = null,
@@ -23,8 +22,8 @@ data class HomeUiState(
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getVmProfiles: GetVmProfilesUseCase,
-    private val vmManager: VmManager,
+    private val getVeProfiles: GetVeProfilesUseCase,
+    private val containerManager: ContainerManager,
     private val capabilityChecker: VmCapabilityChecker,
 ) : ViewModel() {
 
@@ -34,50 +33,35 @@ class HomeViewModel @Inject constructor(
     init {
         _uiState.update { it.copy(capabilityTier = capabilityChecker.capabilityTier) }
 
-        // Observe VM profiles
+        // Observe VE profiles
         viewModelScope.launch {
-            getVmProfiles().collect { profiles ->
+            getVeProfiles().collect { profiles ->
                 _uiState.update {
-                    it.copy(vmProfiles = profiles, isLoading = false)
+                    it.copy(veProfiles = profiles, isLoading = false)
                 }
             }
         }
-
-        // Crash recovery
-        viewModelScope.launch {
-            vmManager.recoverFromCrash()
-        }
     }
 
-    fun startVm(vmId: String) {
+    fun startVe(veId: String) {
         viewModelScope.launch {
-            val result = vmManager.startVm(vmId)
-            when (result) {
-                is VmEngineResult.Success ->
-                    _uiState.update { it.copy(successMessage = "VM started — ${result.profile.name} is running") }
-                is VmEngineResult.Error ->
-                    _uiState.update { it.copy(errorMessage = result.message) }
-                is VmEngineResult.Unsupported ->
-                    _uiState.update { it.copy(errorMessage = result.message) }
-                is VmEngineResult.InsufficientResources ->
-                    _uiState.update { it.copy(errorMessage = result.message) }
+            try {
+                containerManager.startContainer(veId)
+                _uiState.update { it.copy(successMessage = "Virtual environment started") }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(errorMessage = e.message ?: "Failed to start") }
             }
         }
     }
 
-    fun stopVm(vmId: String) {
+    fun stopVe(veId: String) {
         viewModelScope.launch {
-            val result = vmManager.stopVm(vmId)
-            if (result is VmEngineResult.Success) {
-                _uiState.update { it.copy(successMessage = "VM stopped") }
+            try {
+                containerManager.stopContainer(veId)
+                _uiState.update { it.copy(successMessage = "Virtual environment stopped") }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(errorMessage = e.message ?: "Failed to stop") }
             }
-        }
-    }
-
-    fun deleteVm(vmId: String) {
-        viewModelScope.launch {
-            vmManager.stopVm(vmId)
-            // Delete handled by detail screen
         }
     }
 

@@ -8,6 +8,8 @@ import com.shadowcore.app.data.repository.BillingRepositoryImpl
 import com.shadowcore.app.data.repository.VeRepositoryImpl
 import com.shadowcore.app.domain.repository.BillingRepository
 import com.shadowcore.app.domain.repository.VeRepository
+import com.shadowcore.app.engine.ContainerEngine
+import com.shadowcore.app.engine.StubContainerEngine
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -50,5 +52,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindBillingRepository(impl: BillingRepositoryImpl): BillingRepository
-}
 
+    @Binds
+    @Singleton
+    abstract fun bindContainerEngine(impl: StubContainerEngine): ContainerEngine
+}

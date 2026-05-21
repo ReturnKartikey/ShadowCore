@@ -47,6 +47,8 @@ fun ShadowCoreNavigation(
                 onNavigateToDetail = { veId -> navController.navigate(Routes.veDetail(veId)) },
                 onNavigateToConsole = { veId -> navController.navigate(Routes.container(veId)) },
                 onNavigateToSettings = { navController.navigate(Routes.SETTINGS) },
+                onNavigateToActivation = { navController.navigate(Routes.ACTIVATION) },
+                onNavigateToImageManager = { navController.navigate(Routes.IMAGE_MANAGER) },
             )
         }
 
