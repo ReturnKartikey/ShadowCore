@@ -13,7 +13,7 @@ import javax.inject.Inject
 data class SettingsUiState(
     val themeMode: Int = 0, // 0=Auto, 1=Light, 2=Dark
     val capabilityReport: CapabilityReport? = null,
-    val appVersion: String = "1.0.0",
+    val appVersion: String = "2.0.0-alpha",
 )
 
 @HiltViewModel

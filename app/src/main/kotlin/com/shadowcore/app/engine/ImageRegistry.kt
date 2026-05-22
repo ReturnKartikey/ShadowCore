@@ -10,19 +10,24 @@ import javax.inject.Singleton
  * and used to boot virtual environment containers. Each entry includes metadata
  * such as API level, download URL, size, and integrity hash.
  *
- * Currently uses hardcoded entries with placeholder Firebase Storage URLs.
- * In production, this catalog could be fetched from a remote config endpoint.
+ * Images are hosted as GitHub Release assets at:
+ * https://github.com/ReturnKartikey/ShadowCore/releases/download/v1.0-images/
  *
  * ## Supported Images
- * | Version | API | Code Name          |
- * |---------|-----|--------------------|
- * | 9       | 28  | Pie                |
- * | 11      | 30  | Red Velvet Cake    |
- * | 13      | 33  | Tiramisu           |
- * | 15      | 35  | Vanilla Ice Cream  |
+ * | Version | API | Code Name          | Size  |
+ * |---------|-----|--------------------| ------|
+ * | 9       | 28  | Pie                | ~320MB|
+ * | 11      | 30  | Red Velvet Cake    | ~380MB|
+ * | 13      | 33  | Tiramisu           | ~450MB|
+ * | 15      | 35  | Vanilla Ice Cream  | ~500MB|
  */
 @Singleton
 class ImageRegistry @Inject constructor() {
+
+    companion object {
+        private const val GITHUB_RELEASE_BASE =
+            "https://github.com/ReturnKartikey/ShadowCore/releases/download/v1.0-images"
+    }
 
     /**
      * All available system images that can be downloaded.
@@ -33,9 +38,9 @@ class ImageRegistry @Inject constructor() {
             apiLevel = 28,
             displayName = "Android 9",
             codeName = "Pie",
-            downloadUrl = "https://firebasestorage.googleapis.com/v0/b/shadowcore-prod.appspot.com/o/images%2Fandroid-9-system.tar.gz?alt=media",
+            downloadUrl = "$GITHUB_RELEASE_BASE/android-9-system.tar.gz",
             downloadSizeMb = 320,
-            sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            sha256 = "", // Will be set after actual images are built
             minHostApiLevel = 29,
         ),
         SystemImage(
@@ -43,9 +48,9 @@ class ImageRegistry @Inject constructor() {
             apiLevel = 30,
             displayName = "Android 11",
             codeName = "Red Velvet Cake",
-            downloadUrl = "https://firebasestorage.googleapis.com/v0/b/shadowcore-prod.appspot.com/o/images%2Fandroid-11-system.tar.gz?alt=media",
+            downloadUrl = "$GITHUB_RELEASE_BASE/android-11-system.tar.gz",
             downloadSizeMb = 380,
-            sha256 = "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+            sha256 = "",
             minHostApiLevel = 29,
         ),
         SystemImage(
@@ -53,9 +58,9 @@ class ImageRegistry @Inject constructor() {
             apiLevel = 33,
             displayName = "Android 13",
             codeName = "Tiramisu",
-            downloadUrl = "https://firebasestorage.googleapis.com/v0/b/shadowcore-prod.appspot.com/o/images%2Fandroid-13-system.tar.gz?alt=media",
+            downloadUrl = "$GITHUB_RELEASE_BASE/android-13-system.tar.gz",
             downloadSizeMb = 450,
-            sha256 = "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+            sha256 = "",
             minHostApiLevel = 29,
         ),
         SystemImage(
@@ -63,9 +68,9 @@ class ImageRegistry @Inject constructor() {
             apiLevel = 35,
             displayName = "Android 15",
             codeName = "Vanilla Ice Cream",
-            downloadUrl = "https://firebasestorage.googleapis.com/v0/b/shadowcore-prod.appspot.com/o/images%2Fandroid-15-system.tar.gz?alt=media",
+            downloadUrl = "$GITHUB_RELEASE_BASE/android-15-system.tar.gz",
             downloadSizeMb = 500,
-            sha256 = "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4",
+            sha256 = "",
             minHostApiLevel = 29,
         ),
     )
