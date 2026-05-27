@@ -18,7 +18,7 @@ import com.shadowcore.app.domain.model.VeState
 import com.shadowcore.app.ui.components.AndroidVersionBadge
 import com.shadowcore.app.ui.components.ResourceBar
 import com.shadowcore.app.ui.components.StatusIndicator
-import com.shadowcore.app.ui.theme.VmRunning
+import com.shadowcore.app.ui.theme.VeRunning
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,7 +91,7 @@ fun VmDetailScreen(
                         Spacer(Modifier.height(8.dp))
                         Card(
                             onClick = { onNavigateToConsole(profile.id) },
-                            colors = CardDefaults.cardColors(containerColor = VmRunning.copy(alpha = 0.12f)),
+                            colors = CardDefaults.cardColors(containerColor = VeRunning.copy(alpha = 0.12f)),
                             shape = MaterialTheme.shapes.small,
                         ) {
                             Row(
@@ -99,9 +99,9 @@ fun VmDetailScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Center,
                             ) {
-                                Icon(Icons.Rounded.Code, null, tint = VmRunning, modifier = Modifier.size(18.dp))
+                                Icon(Icons.Rounded.Code, null, tint = VeRunning, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text("Environment is running — tap to open", fontWeight = FontWeight.SemiBold, color = VmRunning, style = MaterialTheme.typography.labelLarge)
+                                Text("Environment is running — tap to open", fontWeight = FontWeight.SemiBold, color = VeRunning, style = MaterialTheme.typography.labelLarge)
                             }
                         }
                     }
@@ -129,7 +129,7 @@ fun VmDetailScreen(
                     Button(
                         onClick = { onNavigateToConsole(profile.id) },
                         modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.buttonColors(containerColor = VmRunning),
+                        colors = ButtonDefaults.buttonColors(containerColor = VeRunning),
                     ) {
                         Icon(Icons.Rounded.Code, null)
                         Spacer(Modifier.width(4.dp))

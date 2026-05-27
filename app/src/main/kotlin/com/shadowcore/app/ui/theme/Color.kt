@@ -18,14 +18,23 @@ val SurfaceDarkCard = Color(0xFF1E1E35)
 val SurfaceLight = Color(0xFFF8F6FF)
 val SurfaceLightCard = Color(0xFFFFFFFF)
 
-// ── Semantic VM State Colors ──────────────────────────────────────────
-val VmRunning = Color(0xFF00E676)
-val VmRunningDim = Color(0xFF004D2A)
-val VmPaused = Color(0xFFFFAB40)
-val VmPausedDim = Color(0xFF5C3D00)
-val VmStopped = Color(0xFF78909C)
-val VmError = Color(0xFFFF5252)
-val VmDownloading = Color(0xFF40C4FF)
+// ── Semantic VE State Colors ─────────────────────────────────────────
+val VeRunning = Color(0xFF00E676)
+val VeRunningDim = Color(0xFF004D2A)
+val VePaused = Color(0xFFFFAB40)
+val VePausedDim = Color(0xFF5C3D00)
+val VeStopped = Color(0xFF78909C)
+val VeError = Color(0xFFFF5252)
+val VeDownloading = Color(0xFF40C4FF)
+
+// Backward compat aliases (will be removed in next cleanup)
+@Deprecated("Use VeRunning", ReplaceWith("VeRunning")) val VmRunning = VeRunning
+@Deprecated("Use VeRunningDim", ReplaceWith("VeRunningDim")) val VmRunningDim = VeRunningDim
+@Deprecated("Use VePaused", ReplaceWith("VePaused")) val VmPaused = VePaused
+@Deprecated("Use VePausedDim", ReplaceWith("VePausedDim")) val VmPausedDim = VePausedDim
+@Deprecated("Use VeStopped", ReplaceWith("VeStopped")) val VmStopped = VeStopped
+@Deprecated("Use VeError", ReplaceWith("VeError")) val VmError = VeError
+@Deprecated("Use VeDownloading", ReplaceWith("VeDownloading")) val VmDownloading = VeDownloading
 
 // ── Capability Tier Colors ────────────────────────────────────────────
 val TierUnsupported = Color(0xFF616161)

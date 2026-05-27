@@ -31,7 +31,7 @@ private val DarkColorScheme = darkColorScheme(
     surfaceContainerHighest = Color(0xFF24243D),
     outline = Color(0xFF49454F),
     outlineVariant = Color(0xFF2E2E3E),
-    error = VmError,
+    error = VeError,
     onError = Color.White,
 )
 

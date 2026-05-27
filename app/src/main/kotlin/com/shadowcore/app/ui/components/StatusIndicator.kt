@@ -25,12 +25,12 @@ fun StatusIndicator(
 ) {
     val color by animateColorAsState(
         targetValue = when (state) {
-            is VeState.Running -> VmRunning
-            is VeState.Starting -> VmDownloading
-            is VeState.Paused -> VmPaused
-            is VeState.Downloading -> VmDownloading
-            is VeState.Error -> VmError
-            is VeState.Stopped -> VmStopped
+            is VeState.Running -> VeRunning
+            is VeState.Starting -> VeDownloading
+            is VeState.Paused -> VePaused
+            is VeState.Downloading -> VeDownloading
+            is VeState.Error -> VeError
+            is VeState.Stopped -> VeStopped
         },
         animationSpec = tween(300),
         label = "statusColor"

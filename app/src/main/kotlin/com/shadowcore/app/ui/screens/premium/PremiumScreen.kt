@@ -75,11 +75,11 @@ fun PremiumScreen(
 
                 // Features
                 GlassCard(modifier = Modifier.fillMaxWidth()) {
-                    FeatureItem(Icons.Rounded.AllInclusive, "Unlimited Virtual Machines", "No more 2 VM limit")
+                    FeatureItem(Icons.Rounded.AllInclusive, "Unlimited Environments", "No more 2 VE limit")
                     Spacer(Modifier.height(12.dp))
                     FeatureItem(Icons.Rounded.PhoneAndroid, "All Android Versions", "Android 13 Tiramisu & 15 Vanilla Ice Cream")
                     Spacer(Modifier.height(12.dp))
-                    FeatureItem(Icons.Rounded.Backup, "Export & Backup", "Save VMs as encrypted files")
+                    FeatureItem(Icons.Rounded.Backup, "Export & Backup", "Save environments as encrypted files")
                     Spacer(Modifier.height(12.dp))
                     FeatureItem(Icons.Rounded.SdCard, "Custom ROMs", "Load custom system images")
                     Spacer(Modifier.height(12.dp))
@@ -91,7 +91,7 @@ fun PremiumScreen(
                 // Purchase button
                 if (state.isPremium) {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = VmRunning.copy(alpha = 0.15f)),
+                        colors = CardDefaults.cardColors(containerColor = VeRunning.copy(alpha = 0.15f)),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Row(
@@ -99,9 +99,9 @@ fun PremiumScreen(
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Icon(Icons.Rounded.CheckCircle, null, tint = VmRunning)
+                            Icon(Icons.Rounded.CheckCircle, null, tint = VeRunning)
                             Spacer(Modifier.width(8.dp))
-                            Text("Premium Active", fontWeight = FontWeight.Bold, color = VmRunning)
+                            Text("Premium Active", fontWeight = FontWeight.Bold, color = VeRunning)
                         }
                     }
                 } else {
